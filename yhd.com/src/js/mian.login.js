@@ -1,0 +1,11 @@
+require.config({
+    paths:{
+        jquery:'./jquery.min',
+        index:'./lib/login'
+    }
+});
+require(['./lib/login'],function(login){
+   $('#login_button').on('click',function(){
+       login.render();
+   })
+});

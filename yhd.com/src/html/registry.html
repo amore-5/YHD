@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册1号店</title>
+    <link rel="icon" href="https://www.yhd.com//favicon.ico" />
+    
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/registry.css">
+</head>
+<body>
+    <header id="hlogin">
+        <div class="wrap">
+            <img src="https://passport.yhd.com/front-passport/passport/images/loginlogo.jpg" alt="">
+            <div class="header_right">
+                您好，欢迎光临1号店！ <a href="http://localhost/project/yhd.com/src/html/login.html">请登录</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="registry">
+        <div class="bg bg1"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
+        <div class="bg bg4"></div>
+        <div class="bg bg5"></div>
+        <div class="registry">
+            <h2 class="re_title">1号店注册</h2>
+            <div class="re_form">
+                <ul>
+                    <li>
+                        <div class="same_item">
+                            <input type="text" class="same_input" id="user">
+                            <span class="same_label">用户名</span>
+                        </div>
+                        <div class="same_tips tips_user">
+                            <div class="tips_in">
+                                <i></i>
+                                <div class="tips_word">4-20位字符，可由中文、英文、数字或符号"_"组成</div>
+                            </div>
+                        </div>
+                        <div class="success"></div>
+                    </li>
+                    <li>
+                        <div class="same_item">
+                            <input type="text" class="same_input" id="pho">
+                            <span class="same_label">手机号</span>
+                        </div>
+                        <div class="same_tips tips_pho">
+                            <div class="tips_in">
+                                <i></i>
+                                <div class="tips_word">请填写正确的手机号码，以便 接收订单通知，找回密码等</div>
+                            </div>
+                        </div>
+                        <div class="success"></div>
+                    </li>
+                    <li class="short_item">
+                        <div class="same_item short">
+                            <input type="text" class="same_input short_input" id="security">
+                            <span class="same_label">验证码</span>
+                        </div>
+                        <a class="yanzheng" href="javascript:;">验证码</a>
+                        <div class="same_tips tips_sec">
+                            <div class="tips_in">
+                                <i></i>
+                                <div class="tips_word">请填写正确的验证码</div>
+                            </div>
+                        </div>
+                        <div class="success"></div>
+                    </li>
+                    <li>
+                        <div class="same_item">
+                            <input type="password" class="same_input" id="pass">
+                            <span class="same_label">设置密码</span>
+                        </div>
+                        <div class="same_tips tips_pas">
+                            <div class="tips_in">
+                                <i></i>
+                                <div class="tips_word">6-20个大小写英文字母、符号或数字的组合</div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="same_item">
+                            <input type="password" class="same_input" id="truepass">
+                            <span class="same_label">确认密码</span>
+                        </div>
+                        <div class="same_tips tips_two">
+                            <div class="tips_in">
+                                <i></i>
+                                <div class="tips_word">请再次输入密码</div>
+                            </div>
+                        </div>
+                        <div class="success"></div>
+                    </li>
+                    <li>
+                        <div class="re_sub">
+                            点击注册，表示您同意1号店
+                            <a href="#">《服务协议及隐私声明》</a>
+                        </div>
+                        <a href="javascript:;" class="re_button">同意协议并注册</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer id="flogin">
+        <a href="http://www.miibeian.gov.cn/">沪ICP备16050468号</a>|
+        <a>沪B2-20170039</a>|
+        <a href="http://d7.yihaodianimg.com/N09/M07/BD/7B/ChEi11kJnKaAJQMrAAK-LnhML4o60600.jpg"
+            data-ref="YHD_Footer_Licence">营业执照</a>
+        <p>Copyright © 1号店网上超市 2007-2018，All Rights Reserved</p>
+    </footer>
+</body>
+</html>
+<script src="../js/jquery.min.js"></script>
+<script>
+    $(function(){
+            //用户名等等文字弹出
+            $('.re_form ul li div input').on('focus',function(){
+                $(this).siblings().css({
+                    left:`-70px`
+                });
+            });
+            
+            let isRight=[0,0,0,0,0];
+            let a=yzm();
+        　　console.log(a);
+            $('#user').on('blur',function(){
+                user($(this));
+            })//用户名框移出
+            $('#pho').on('blur',function(){
+                pho($(this));
+            })//手机号移出
+            $('#security').on('blur',function(){
+                if($(this).val()==a){
+                    isRight[2]=1;
+                    $('.tips_sec').css({
+                        display:'none'
+                    });
+                    $('.tips_sec').nextUntil().css({
+                        display:'block'
+                    });
+                }else{
+                    isRight[2]=0;
+                    $('.tips_sec').css({
+                        display:'block'
+                    });
+                    $('.tips_sec').nextUntil().css({
+                        display:'none'
+                    });
+                }
+            })//验证码移出
+            $('#pass').on('blur',function(){
+                pass($(this));
+            })//密码
+            $('#truepass').on('blur',function(){
+                if($(this).val()==$('#pass').val() && $(this).val()!=''){  
+                    isRight[4]=1;
+                    $('.tips_two').css({
+                        display:'none'
+                    });
+                    $('.tips_two').nextUntil().css({
+                        display:'block'
+                    });
+                }else{
+                    isRight[4]=0;
+                    $('.tips_two').css({
+                        display:'block'
+                    });
+                    $('.tips_two').nextUntil().css({
+                        display:'none'
+                    });
+                }
+            })//确认密码
+            //随机数字验证码
+            function yzm(){
+                var code = "";
+            　　for(var i=0;i<6;i++){
+            　　　　var radom = Math.floor(Math.random()*10);
+            　　　　code += radom;
+            　　}
+                return code;
+            }
+
+            //用户名
+            function user(a){
+                //4-20位，可由中文、英文、数字或符号"_"组成
+                var reg = /[\u4e00-\u9fa5a-zA-Z0-9\-]{4,20}/;
+                if(reg.test(a.val())){
+                    isRight[0]=1;
+                    $('.tips_user').css({
+                        display:'none'
+                    });
+                    $('.tips_user').nextUntil().css({
+                        display:'block'
+                    });
+                }else{
+                    isRight[0]=0;
+                    $('.tips_user').css({
+                        display:'block'
+                    });
+                    $('.tips_user').nextUntil().css({
+                        display:'none'
+                    });
+                }
+            }
+            //手机号
+            function pho(a){
+                //手机号正则验证
+                var reg = /^1[34578]\d{9}$/;
+                if(reg.test(a.val())){
+                    isRight[1]=1;
+                    $('.tips_pho').css({
+                        display:'none'
+                    });
+                    $('.tips_pho').nextUntil().css({
+                        display:'block'
+                    });
+                }else{
+                    isRight[1]=0;
+                    $('.tips_pho').css({
+                        display:'block'
+                    });
+                    $('.tips_pho').nextUntil().css({
+                        display:'none'
+                    });
+                }
+            }
+            //密码格式
+            function pass(a){
+                //手机号正则验证
+                var reg = /^[a-zA-Z0-9]\w{5,19}$/;
+                if(reg.test(a.val())){
+                    isRight[3]=1;
+                    $('.tips_pas').css({
+                        display:'none'
+                    });
+                    $('.tips_pas').nextUntil().css({
+                        display:'block'
+                    });
+                }else{
+                    isRight[3]=0;
+                    $('.tips_pas').css({
+                        display:'block'
+                    });
+                    $('.tips_pas').nextUntil().css({
+                        display:'none'
+                    });
+                }
+                console.log(isRight)
+            }
+            
+    })
+
+
+</script>

@@ -1,0 +1,24 @@
+{
+  "name": "yhd.com",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "requirejs": "^2.3.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amore-5/yhd.com.git"
+  },
+  "bugs": {
+    "url": "https://github.com/amore-5/yhd.com/issues"
+  },
+  "homepage": "https://github.com/amore-5/yhd.com#readme",
+  "description": ""
+}

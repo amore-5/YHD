@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的购物车</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="icon" href="./fonts/favicon.ico">
+    <link rel="stylesheet" href="../css/cartlist.css">
+    <script src="../js/require.js" data-main="../js/main.cartlist.js"></script>
+    <style>
+        li{
+            list-style: none;
+        }
+        .item {
+            border: .5px solid #cccccc;
+            overflow: hidden;
+        }
+        
+        .item>div {
+            float: left;
+            margin: 15px 10px;
+        }
+        
+        .p-pic>img {
+            width: 80px;
+        }
+        .item>.c-box{
+            margin-top: 45px;
+        }
+        .p-title {
+            width: 300px;
+            margin-right: 150px;
+            font-size: 14px;
+        }
+        .p-price{
+            display: block;
+            width: 256px;
+            text-align: center;
+            margin-left: 50px;
+        }
+        .num_act{
+            float: right;
+            padding: 3px 0;
+            width: 80px;
+            height: 18px;
+            line-height: 18px;
+            border: 1px solid #dfdfdf;
+            border-radius: 2px;
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .num_act a{
+            float: left;
+            width: 20px;
+            text-align: center;
+            color: #666;
+            font-family: 'Tahoma';
+            font-size: 14px;
+            overflow: hidden;
+        }
+        .input{
+            float: left;
+            width: 38px;
+            height: 18px;
+            border: none;
+            border-left: 1px solid #dfdfdf;
+            border-right: 1px solid #dfdfdf;
+            text-align: center;
+            line-height: 18px;
+            outline: none;
+        }
+        .p-price-sum{
+            width: 190px;
+            text-align: right;
+            font-size: 16px;
+        }
+
+        .p-del{
+            text-align: center;
+            width: 100px;
+        }
+        .xr{
+            background: #fff
+        }
+        .xr>li{
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top_bar">
+            <div class="top_bar_main">
+                <a href="javascript:;">
+                    <i class="icon iconfont"></i>
+                    <span class="text">1号店首页</span>
+
+                </a>
+                <!-- 公告 -->
+                <div class="notice">
+                    <i class="icon iconfont"></i>
+                    <ul class="notice_slider">
+                        <li class="slider">防范金融诈骗提示</li>
+                        <li class="slider">1号店配送费调整公告</li>
+                        <li class="slider">1金融下线公告</li>
+                    </ul>
+
+                </div>
+                <!-- 登录注册入口 -->
+                <div class="login_entry">
+                    <ul>
+                        <li class="login">
+                            <div class="unlogin">
+                                <span class="hd_hi">下午好,请</span>
+                                <a href="http://localhost/project/yhd.com/src/html/login.html"
+                                    class="login_link">登录&nbsp;</a>
+                                <a href="http://localhost/project/yhd.com/src/html/registry.html"
+                                    class="regist_link">&nbsp;注册</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="hd_menu">
+                                <a href="//vip.yhd.com">
+                                    <i class="icon iconfont"></i>
+                                    <span class="text">会员俱乐部</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="hd_menu">
+                                <a href="//home.yhd.com/order/toOrderList.do" target="_blank" rel="nofollow">
+                                    <i class="icon iconfont"></i>
+                                    <span class="text">我的订单</span>
+                                </a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="hd_menu">
+                                <a href="//home.yhd.com/order/toOrderList.do" target="_blank" rel="nofollow">
+                                    <i class="icon iconfont"></i>
+                                    <span class="text">下载APP</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="clearfix main_content">
+        <div class="cart_head clearfix wrap">
+            <div class="head_l">
+                <h1>
+                    <a href="" class="logo"></a>
+                    <a href="" class="logo_text"></a>
+                </h1>
+            </div>
+            <!-- 配送地址 -->
+            <div class="area_wrap">
+                <span class="area_txt">配送至：</span>
+                <div class="address" id="completed_address" data-tpa="CART_ADDRESS_AREA">
+                    <span class="val_text" id="detail_area_name">上海
+                        <i>|</i>静安区
+                        <i>|</i>城区
+                    </span>
+                    <i class="btn_arrow"></i>
+                </div>
+            </div>
+            <!-- 搜索框 -->
+            <div class="search">
+                <input id="keyword" type="text" placeholder="请输入关键词">
+                <a id="search" href="javascript:void(0);" class="search_btn iconfont"></a>
+               
+            </div>
+        </div>
+        <!-- 商品列表 -->
+        <div class="cart_body">
+            <div class="wrap">
+                <ul class="clearfix wrap good_info">
+                    <li class="checkbox">
+                        <!-- <input type="checkbox">
+                        <span>全选</span> -->
+                    </li>
+                    <li class="tit">商品信息</li>
+                    <li class="price_txt">单价（元）</li>
+                    <li class="num_txt">数量</li>
+                    <li class="total">小计</li>
+                    <li class="act">操作</li>
+                </ul>
+                <!-- 商品渲染 -->
+                <div class="xr"></div>
+
+                <!-- <div class="cart_list"> 
+                    <div class="goods-item goods-item-sele" style="display:none">
+                        <div class="goods-info">
+                            <div class="cell b-checkbox">
+                                <div class="cart-checkbox">
+                                    <input type="checkbox" checked="" name="" id="" value="" />
+                                    <span class="line-circle"></span>
+                                </div>
+                            </div>
+                            <div class="cell b-goods">
+                                <div class="goods-name">
+                                    <div class="goods-pic">
+                                        <a href=""><img src="" alt="" /></a>
+                                    </div>
+                                    <div class="goods-msg">
+                                        <div class="goods-d-info">
+                                            <a href="">Apple iMac 27英寸一体机（Core i5
+                                                处理器/8GB内存/1TB存储/2GB独显/Retina 5K屏 MK462CH/A）</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cell b-price">
+                                <strong>13488.00</strong>
+                            </div>
+                            <div class="cell b-quantity">
+                                <div class="quantity-form">
+                                    <a class="quantity-down" href="javascript:void(0)">-</a>
+                                    <input type="text" value="1" />
+                                    <a class="quantity-add" href="javascript:void(0)">+</a>
+                                </div>
+                            </div>
+                            <div class="cell b-sum">
+                                <strong>13488.00</strong>
+                            </div>
+                            <div class="cell b-action">
+                                <a href="javascript:void(0)">删除</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- 商品总价 -->
+                <div class="total_price">
+                    <div class="act_l">
+                        <span class="sel_all">
+                            <input type="checkbox" class="allselector" checked>
+                            <span class="all">全选（共<em>0</em>件）</span>|
+                        </span>
+                        <span class="del_all">批量删除</span>
+
+                    </div>
+                    <div class="act_r">
+                        <a href="#" class="count_btn">去结算</a>
+                        <div class="count">
+                                合计：
+                                <span class="money">￥<b>0</b></span>    
+                        </div>
+                        <div class="num_count">
+                            <span>已选商品<b>0</b>件</span>
+                            <a href="#">预览</a>|
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer"></footer>
+
+     <!-- cdn内容分发网络引入jQuery插件 -->
+     <script>
+        $(document).ready(function () {
+          
+            $("#footer").load("http://localhost/project/yhd.com/src/html/footer.html");
+            //在页面装载时，在ID为#header的DOM元素里插入header.html的内容。
+            //加载页尾
+        });
+    </script>
+</body>
+</html>
